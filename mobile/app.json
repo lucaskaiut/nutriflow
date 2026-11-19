@@ -1,0 +1,68 @@
+{
+  "expo": {
+    "name": "NutriFlow",
+    "slug": "nutriflow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "nutriflow",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "br.com.nox.nutriflow",
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#2E6B4E",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "br.com.nox.nutriflow"
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F6F5F1",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76,
+          "dark": {
+            "backgroundColor": "#141412"
+          }
+        }
+      ],
+      "expo-secure-store",
+      "expo-font",
+      "expo-localization",
+      "expo-sharing",
+      "@react-native-community/datetimepicker",
+      [
+        "expo-notifications",
+        {
+          "color": "#2E6B4E"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O NutriFlow acessa suas fotos apenas para você escolher a imagem de uma receita.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {}
+  }
+}
