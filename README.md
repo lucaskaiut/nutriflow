@@ -141,6 +141,18 @@ não guarda credenciais; apenas o token de sessão da pessoa, no SecureStore (Ke
 2. Coloque os três IDs em `GOOGLE_CLIENT_IDS` (API) e nas variáveis `EXPO_PUBLIC_GOOGLE_*` (app).
 3. Com qualquer um deles vazio na API, o botão "Continuar com Google" não é exibido.
 
+## APK instalável (GitHub Actions, sem EAS)
+
+O workflow `.github/workflows/android-apk.yml` gera o APK com `expo prebuild` + Gradle:
+
+- **Release:** criar e enviar uma tag `vX.Y.Z` (ex.: `git tag v1.0.1 && git push origin v1.0.1`). O APK sai anexado
+  à Release do GitHub. Também dá para rodar manualmente em *Actions → Android APK → Run workflow* (APK nos artifacts).
+- **API:** variável de repositório `EXPO_PUBLIC_API_URL` (padrão: `https://nutriflow-api.noxtecnologias.com.br/api`).
+- **Versão:** `versionName` vem da tag; `versionCode` é o número da execução do workflow.
+- **Assinatura:** secrets `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` e
+  `ANDROID_KEY_PASSWORD`. Sem eles, o APK sai assinado com a chave de debug (instala, mas não atualiza um APK de
+  release). Guarde a keystore e as senhas fora do repositório: sem elas não é possível publicar atualizações.
+
 ## Backup
 
 ```bash
