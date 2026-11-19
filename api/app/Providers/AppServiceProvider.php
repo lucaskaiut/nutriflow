@@ -51,8 +51,15 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->getKey() ?: $request->ip());
         });
 
+        // Atrás do proxy (Swarm ingress + Traefik) todas as requisições chegam com o mesmo IP;
+        // por isso o limite de login/cadastro/recuperação é por e-mail + IP, e há um teto geral por IP.
         RateLimiter::for('auth', function (Request $request) {
-            return Limit::perMinute(10)->by($request->ip());
+            $email = mb_strtolower(trim((string) $request->input('email')));
+
+            return [
+                Limit::perMinute(10)->by('auth:'.$email.'|'.$request->ip()),
+                Limit::perMinute(300)->by('auth-ip:'.$request->ip()),
+            ];
         });
 
         // NutriFlow: uso geral do app autenticado e operações sensíveis (exportar / excluir conta), com chaves distintas.
