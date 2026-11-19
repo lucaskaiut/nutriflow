@@ -39,7 +39,7 @@ jobs:
           cache: npm
           cache-dependency-path: mobile/package-lock.json
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -99,7 +99,8 @@ jobs:
             cp "$IN" "$OUT"
             echo "::warning::Secrets de assinatura ausentes: APK assinado com a chave de debug."
           fi
-          "$BT/apksigner" verify --print-certs "$OUT" | grep -E "Signer #1 certificate (DN|SHA-256)"
+          "$BT/apksigner" verify "$OUT"   # falha o job se a assinatura for inválida
+          "$BT/apksigner" verify --print-certs "$OUT" | grep -iE "certificate (DN|SHA-256)" || true
           ls -lh ../dist
 
       - uses: actions/upload-artifact@v4
